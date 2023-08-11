@@ -12,6 +12,12 @@ class Forecasts extends Controller
 
         $cities = Cities::where('city', 'LIKE', '%'.$city.'%')->get();
 
-        return view('searched_forecast', compact('cities'));
+        if (count($cities) == 0) {
+            return redirect()->back()->with('error', 'There is no result for '.$city.'');
+        }
+        else {
+            return view('searched_forecast', compact('cities'));
+        }
+
     }
 }
