@@ -30,7 +30,7 @@
 
 
     <div class="d-flex flex-wrap gap-3 mt-5">
-        @foreach(\App\Models\Cities::all() as $city)
+        @foreach(\App\Models\Cities::with('forecasts')->get() as $city)
             <div class="border rounded-2 p-2">
                 <h3>{{ $city->city }}</h3>
                 <ul class="list-group">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +14,13 @@ class Cities extends Model
         'city',
     ];
 
-    public function forecasts()
-    {
+    public function forecasts() {
         return $this->hasMany(Forecasts::class, 'city_id', 'id')
             ->orderBy('date_forecast');
+    }
+
+    public function today_forecast() {
+        return $this->hasOne(Forecasts::class, 'city_id', 'id')
+            ->whereDate('date_forecast', Carbon::now());
     }
 }

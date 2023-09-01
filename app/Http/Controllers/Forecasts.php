@@ -10,7 +10,9 @@ class Forecasts extends Controller
     public function search(Request $request) {
         $city = $request->get('city');
 
-        $cities = Cities::where('city', 'LIKE', '%'.$city.'%')->get();
+        $cities = Cities::with('today_forecast')
+            ->where('city', 'LIKE', '%'.$city.'%')
+            ->get();
 
         if (count($cities) == 0) {
             return redirect()->back()->with('error', 'There is no result for '.$city.'');

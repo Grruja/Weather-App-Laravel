@@ -9,7 +9,8 @@ class Weather extends Controller
 {
     public function index()
     {
-        $weather = \App\Models\Weather::all();
+        $weather = \App\Models\Weather::with('cities')
+            ->get();
 
         return view('weather', compact('weather'));
     }

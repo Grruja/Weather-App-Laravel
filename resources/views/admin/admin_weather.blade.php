@@ -17,7 +17,7 @@
         <button>Save</button>
     </form>
 
-    @foreach(\App\Models\Weather::all() as $weather)
+    @foreach(\App\Models\Weather::with('cities')->get() as $weather)
         <h3>{{ $weather->cities->city }}</h3>
         <p>- temperature: {{ $weather->temp }}</p>
         <hr>

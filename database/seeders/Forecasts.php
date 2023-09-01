@@ -19,50 +19,45 @@ class Forecasts extends Seeder
         {
             $first_temp = rand(-10, 30);
 
-            for ($i = 0; $i < 5; $i++)
-            {
+            for ($i = 0; $i < 5; $i++) {
                 $weathers = \App\Models\Forecasts::WEATHERS;
                 $temp = rand($first_temp - 5, $first_temp + 5);
                 $first_temp = $temp;
 
-                if ($first_temp < -15)
-                {
+                if ($first_temp < -15) {
                     $first_temp = -15;
                 }
-                elseif ($first_temp  > 35)
-                {
+                elseif ($first_temp  > 35) {
                     $first_temp = 35;
                 }
 
-                if ($temp < -10)
-                {
+                if ($temp < -10) {
                     $weather_remove = ['rainy'];
                     $weathers = array_diff($weathers, $weather_remove);
                 }
-                elseif ($temp > 15)
-                {
+                elseif ($temp > 15) {
                     $weather_remove = ['cloudy', 'snowy'];
                     $weathers = array_diff($weathers, $weather_remove);
                 }
-                elseif ($temp > 1)
-                {
+                elseif ($temp > 1) {
                     $weather_remove = ['snowy'];
                     $weathers = array_diff($weathers, $weather_remove);
                 }
 
-                $weather_type = array_rand($weathers);
+                $weather_rand = array_rand($weathers);
+                $weather_type = $weathers[$weather_rand];
+
                 $probability = null;
 
-                if ($weathers == 'rainy' || $weathers == 'snowy')
-                {
+                if ($weather_type == 'rainy' || $weather_type == 'snowy') {
                     $probability = rand(1, 100);
                 }
 
                 \App\Models\Forecasts::create([
                     'temp' => $temp,
-                    'date_forecast' => Carbon::now()->addDays(rand(1, 30)),
+                    'date_forecast' => Carbon::now()->addDays($i),
                     'city_id' => $city->id,
-                    'weather_type' => $weathers[$weather_type],
+                    'weather_type' => $weather_type,
                     'probability' => $probability,
                 ]);
             }
