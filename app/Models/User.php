@@ -43,4 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function favourite_cities() {
+        return $this->hasMany(User_cities::class, 'user_id', 'id');
+    }
 }

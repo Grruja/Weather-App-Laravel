@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin_weather;
 use App\Http\Controllers\Forecast;
 use App\Http\Controllers\Forecasts;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User_cities;
 use App\Http\Controllers\Weather;
+use App\Http\Controllers\Welcome;
 use App\Http\Middleware\Admin_check;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +27,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', function () { return 'Hello World'; });
 Route::get('/about', function () { return view('about'); });
 Route::get('/contact', function () { return view('contact'); });
-Route::view('/', 'welcome');
+
+// ===== HOME
+
+Route::get('/', [Welcome::class, 'favourite']);
 
 // ===== USER WEATHER
 
@@ -34,6 +39,11 @@ Route::get('/weather', [Weather::class, 'index'])->name('weather');
 Route::get('/forecast/search', [Forecasts::class, 'search'])->name('forecast_search');
 
 Route::get('/forecast/{cities:city}', [Forecast::class, 'index'])->name('forecast_city');
+
+// ===== USER CITIES
+
+Route::get('/user-cities/favourite/{city}', [User_cities::class, 'favourite'])->name('user_cities');
+Route::get('/user-cities/remove-favourite/{city}', [User_cities::class, 'remove_favourite'])->name('remove_user_cities');
 
 // ===== ADMIN
 
