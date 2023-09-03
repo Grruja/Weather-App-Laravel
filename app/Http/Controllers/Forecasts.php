@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\Single_user;
 use App\Models\Cities;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class Forecasts extends Controller
@@ -26,7 +28,7 @@ class Forecasts extends Controller
             return redirect()->back()->with('error', 'There is no result for '.$city.'');
         }
         else {
-            return view('searched_forecast', compact('cities', 'favourite'));
+            return view('searched_forecast', compact('cities', 'favourite', 'response'));
         }
     }
 }
