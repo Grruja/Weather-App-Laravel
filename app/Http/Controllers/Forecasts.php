@@ -14,6 +14,8 @@ class Forecasts extends Controller
     public function search(Request $request) {
         $city = $request->get('city');
 
+        Artisan::call('app:weather', ['city' => $city]);
+
         $cities = Cities::with('today_forecast')
             ->where('city', 'LIKE', '%'.$city.'%')
             ->get();
@@ -28,7 +30,7 @@ class Forecasts extends Controller
             return redirect()->back()->with('error', 'There is no result for '.$city.'');
         }
         else {
-            return view('searched_forecast', compact('cities', 'favourite', 'response'));
+            return view('searched_forecast', compact('cities', 'favourite'));
         }
     }
 }

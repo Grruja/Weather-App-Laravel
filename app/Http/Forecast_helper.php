@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use function Nette\Utils\match;
+
 class Forecast_helper
 {
     public static function get_color_by_temp($temp)
@@ -28,23 +30,12 @@ class Forecast_helper
 
     public static function get_icon_by_weather($weather)
     {
-        if ($weather == 'sunny')
-        {
-            $icon = 'fa-sun';
-        }
-        elseif ($weather == 'rainy')
-        {
-            $icon = 'fa-cloud-rain';
-        }
-        elseif ($weather == 'cloudy')
-        {
-            $icon = 'fa-cloud-sun';
-        }
-        else
-        {
-            $icon = 'fa-snowflake';
-        }
-
-        return $icon;
+        return match($weather) {
+            'rainy' => 'fa-cloud-rain',
+            'snowy' => 'fa-snowflake',
+            'sunny' => 'fa-sun',
+            'cloudy' => 'fa-cloud-sun',
+            default => 'fa-sun',
+        };
     }
 }

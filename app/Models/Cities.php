@@ -21,6 +21,6 @@ class Cities extends Model
 
     public function today_forecast() {
         return $this->hasOne(Forecasts::class, 'city_id', 'id')
-            ->whereDate('date_forecast', '2023-09-21');
+            ->whereDate('date_forecast', '2023-09-28');
     }
 }
